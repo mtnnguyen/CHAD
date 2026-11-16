@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Home page: title bar with an Import button, and a list area showing imported games. */
 public class HomePage extends JFrame {
 
     private static final String EMPTY_CARD = "empty";
