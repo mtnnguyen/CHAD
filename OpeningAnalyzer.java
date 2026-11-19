@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +10,9 @@ public class OpeningAnalyzer {
 
         for (OpeningResult game : games) {
             String openingName = game.openingName();
+            if (openingName == null || openingName.isBlank()) {
+                openingName = "Unknown";
+            }
 
             if (!groupedGames.containsKey(openingName)) {
                 groupedGames.put(openingName, new ArrayList<>());
@@ -27,20 +29,20 @@ public class OpeningAnalyzer {
             int losses = 0;
 
             for (OpeningResult game : groupedGames.get(openingName)) {
-                if (game.result().equals("Win")) {
+                String result = game.result();
+
+                if ("Win".equals(result)) {
                     wins++;
-                } else if (game.result().equals("Draw")) {
+                } else if ("Draw".equals(result)) {
                     draws++;
-                } else if (game.result().equals("Loss")) {
+                } else if ("Loss".equals(result)) {
                     losses++;
                 } else {
-                    throw new IllegalArgumentException("Unknown game result");
+                    throw new IllegalArgumentException("Unknown game result: " + result);
                 }
             }
 
-            statistics.add(new OpeningStatistics(
-                    openingName, wins, draws, losses
-            ));
+            statistics.add(new OpeningStatistics(openingName, wins, draws, losses));
         }
 
         return statistics;
