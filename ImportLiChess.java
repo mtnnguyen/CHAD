@@ -10,7 +10,7 @@ public class ImportLiChess {
     public static List<GameSummary> importGames(String username)
             throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://lichess.org/api/games/user/" + username + "?max=2"))
+                .uri(URI.create("https://lichess.org/api/games/user/" + username + "?max=100"))
                 .header("Accept", "application/x-chess-pgn")
                 .GET()
                 .build();

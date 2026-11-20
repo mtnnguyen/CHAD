@@ -1,40 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4f6f444-6bf6-49bb-87c8-3888a8f5c2a4" name="Changes" comment="" />
+    <list default="true" id="a4f6f444-6bf6-49bb-87c8-3888a8f5c2a4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex01-odd-sum/src/main/java/OddSum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex01-odd-sum/src/main/java/OddSum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex02-first-letters/src/main/java/FirstLetters.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex02-first-letters/src/main/java/FirstLetters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex03-alias-side-effects/src/main/java/Aliasing.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex03-alias-side-effects/src/main/java/Aliasing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex04-digit-sum/src/main/java/DigitSum.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex04-digit-sum/src/main/java/DigitSum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex06-overloading/src/main/java/MyHashing.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex06-overloading/src/main/java/MyHashing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex07-equality/src/main/java/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex07-equality/src/main/java/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex08-comparable/src/main/java/Word.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex08-comparable/src/main/java/Word.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex09-instance-counter/src/main/java/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex09-instance-counter/src/main/java/Robot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex10-swing/src/main/java/CounterPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex10-swing/src/main/java/CounterPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../207-course-notes/exercises/ex10-swing/src/main/java/RegistrationForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/../207-course-notes/exercises/ex10-swing/src/main/java/RegistrationForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lec 3/L0301Demo/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lec 3/L0301Demo/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lec 3/L0301Demo/src/main/java/org/example/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lec 3/L0301Demo/src/main/java/org/example/Person.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;warhatersam&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/mtnnguyen/CHAD.git&quot;,
+    &quot;accountId&quot;: &quot;59e3182d-0bb0-4852-9a88-84026bd55688&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3,
   &quot;fromUser&quot;: false
 }</component>
   <component name="ProjectId" id="3MCGsCQKMC8uQH2mWaqyKQt1XOk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.Chess Game Analyzer.executor": "Run",
+    "Application.LichessApiExperiment.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "import",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/kai_stokes/CHAD",
+    "last_opened_file_path": "C:/CSC207/CHAD1",
     "node.js.detected.package.jshint": "true",
     "node.js.selected.package.jshint": "",
-    "nodejs_package_manager_path": "npm"
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "build.tools"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\CSC207\CHAD1" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Chess Game Analyzer">
+    <configuration name="LichessApiExperiment" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.LichessApiExperiment" />
+      <module name="CHAD1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="CHAD" />
       <method v="2">
@@ -46,12 +110,17 @@
       <option name="filePath" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LichessApiExperiment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10315.125" />
-        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10315.125" />
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
       </set>
     </attachedChunks>
   </component>
@@ -67,5 +136,43 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ImportLiChess.java</url>
+          <line>8</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
