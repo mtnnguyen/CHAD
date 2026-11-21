@@ -2,12 +2,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Table model for the games currently shown on the home page.
- *
- * <p>The model owns the visible rows, so the page does not have to keep the
- * table and the game list in sync by hand.</p>
- */
+//Table model for the games currently shown on the home page.
 public final class GameTableModel extends AbstractTableModel {
 
     private static final String[] COLUMNS = {"#", "White", "Black", "Result", "Date", "Event"};

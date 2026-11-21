@@ -2,22 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Search rule for the game library.
- *
- * <p>This class contains no Swing code. It only decides whether a game matches
- * the text the user typed, which keeps the rule easy to read and test.</p>
- */
+//Search rule for the game library.
 public final class GameSearch {
 
     private GameSearch() {
     }
 
     /**
-     * Returns the games that match {@code query}. A blank query returns every game.
+     * Returns the games that match {query}. A blank query returns every game.
      *
-     * <p>The search is case-insensitive and checks the fields a player recognises:
-     * White, Black, Event, Date, and Result.</p>
+     * The search is case-insensitive and checks the fields a player recognises:
+     * White, Black, Event, Date, and Result.
      */
     public static List<GameSummary> filter(List<GameSummary> games, String query) {
         if (query == null || query.isBlank()) {
