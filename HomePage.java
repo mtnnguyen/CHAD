@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,18 +16,22 @@ public class HomePage extends JFrame {
     private static final String LIST_CARD = "list";
 
     private final List<GameSummary> games = new ArrayList<>();
+    private final LibraryStore library = new LibraryStore();
     private final GameTableModel tableModel = new GameTableModel();
     private final CardLayout cards = new CardLayout();
     private final JPanel content = new JPanel(cards);
     private final JLabel emptyLabel = new JLabel("Import a PGN file to see your games here.", SwingConstants.CENTER);
     private final JLabel status = new JLabel(" No games imported");
-    private final JTextField searchField = new JTextField(24);
+    private final JTextField searchField = new JTextField(22);
+    private final JCheckBox bookmarkedOnly = new JCheckBox("Bookmarked only");
+    private final String loadWarning = library.loadWarning();
+    private JTable table;
     private String importMessage = "";
 
     public HomePage() {
         super("Chess Game Analyzer");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(900, 600);
+        setSize(1050, 650);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
@@ -55,16 +61,39 @@ public class HomePage extends JFrame {
     private JComponent buildContent() {
         JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 16));
-        wrapper.add(buildSearchBar(), BorderLayout.NORTH);
+        wrapper.add(buildToolbar(), BorderLayout.NORTH);
 
         emptyLabel.setForeground(Color.GRAY);
         content.add(emptyLabel, EMPTY_CARD);
 
-        JTable table = new JTable(tableModel);
+        table = new JTable(tableModel);
         table.setRowHeight(26);
         table.setAutoCreateRowSorter(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table.setFillsViewportHeight(true);
         table.getColumnModel().getColumn(0).setMaxWidth(50);
+        table.getColumnModel().getColumn(GameTableModel.BOOKMARK_COLUMN).setMaxWidth(90);
+        table.getColumnModel().getColumn(GameTableModel.NOTE_COLUMN).setPreferredWidth(240);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int viewColumn = table.columnAtPoint(e.getPoint());
+                int viewRow = table.rowAtPoint(e.getPoint());
+                if (viewRow < 0 || viewColumn < 0) {
+                    return;
+                }
+
+                table.setRowSelectionInterval(viewRow, viewRow);
+                if (viewColumn == GameTableModel.BOOKMARK_COLUMN) {
+                    if (e.getClickCount() == 1) {
+                        toggleBookmark();
+                    }
+                }
+                else if (e.getClickCount() == 2) {
+                    editNote();
+                }
+            }
+        });
 
         content.add(new JScrollPane(table), LIST_CARD);
         cards.show(content, EMPTY_CARD);
@@ -72,11 +101,11 @@ public class HomePage extends JFrame {
         return wrapper;
     }
 
-    private JComponent buildSearchBar() {
-        JPanel bar = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
-        bar.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
+    private JComponent buildToolbar() {
+        JPanel toolbar = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
+        toolbar.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 
-        bar.add(new JLabel("Search:"));
+        toolbar.add(new JLabel("Search:"));
         searchField.setToolTipText("Search by player, event, date or result");
         searchField.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -94,33 +123,128 @@ public class HomePage extends JFrame {
                 refreshTable();
             }
         });
-        bar.add(searchField);
+        toolbar.add(searchField);
 
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(e -> searchField.setText(""));
-        bar.add(clearButton);
+        toolbar.add(clearButton);
 
-        return bar;
+        bookmarkedOnly.addActionListener(e -> refreshTable());
+        toolbar.add(bookmarkedOnly);
+
+        JButton bookmarkButton = new JButton("Toggle Bookmark");
+        bookmarkButton.addActionListener(e -> toggleBookmark());
+        toolbar.add(bookmarkButton);
+
+        JButton noteButton = new JButton("Edit Note");
+        noteButton.addActionListener(e -> editNote());
+        toolbar.add(noteButton);
+
+        return toolbar;
     }
 
-    /** Rebuilds the table from the games that match the current search text. */
+    /**
+     * Builds the visible rows from the games, the search text, and the
+     * bookmark filter. The table model only receives the finished rows.
+     */
     private void refreshTable() {
-        List<GameSummary> visibleGames = GameSearch.filter(games, searchField.getText());
-        tableModel.setGames(visibleGames);
+        List<GameSummary> matchingGames = GameSearch.filter(games, searchField.getText());
+        List<GameRow> rows = new ArrayList<>();
 
-        if (visibleGames.isEmpty()) {
+        for (GameSummary game : matchingGames) {
+            boolean bookmarked = library.isBookmarked(game);
+            if (bookmarkedOnly.isSelected() && !bookmarked) {
+                continue;
+            }
+            rows.add(new GameRow(game, bookmarked, library.noteFor(game)));
+        }
+
+        tableModel.setRows(rows);
+
+        if (rows.isEmpty()) {
             emptyLabel.setText(games.isEmpty()
                     ? "Import a PGN file to see your games here."
-                    : "No games match your search.");
+                    : "No games match the current search or bookmark filter.");
             cards.show(content, EMPTY_CARD);
         }
         else {
             cards.show(content, LIST_CARD);
         }
 
+        int bookmarkCount = 0;
+        for (GameSummary game : games) {
+            if (library.isBookmarked(game)) {
+                bookmarkCount++;
+            }
+        }
+
+        String warning = loadWarning.isEmpty() ? "" : " | " + loadWarning;
         status.setText(games.isEmpty()
-                ? " No games imported"
-                : " " + visibleGames.size() + " of " + games.size() + " game(s) shown" + importMessage);
+                ? " No games imported" + warning
+                : " " + rows.size() + " of " + games.size() + " game(s) shown | "
+                        + bookmarkCount + " bookmarked" + importMessage + warning);
+    }
+
+    private GameSummary selectedGame() {
+        int viewRow = table.getSelectedRow();
+        if (viewRow < 0) {
+            return null;
+        }
+        return tableModel.rowAt(table.convertRowIndexToModel(viewRow)).game();
+    }
+
+    private void toggleBookmark() {
+        GameSummary game = selectedGame();
+        if (game == null) {
+            JOptionPane.showMessageDialog(this, "Select a game first.",
+                    "Bookmark", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            library.setBookmarked(game, !library.isBookmarked(game));
+            refreshTable();
+        }
+        catch (IOException ex) {
+            showSaveError(ex);
+        }
+    }
+
+    private void editNote() {
+        GameSummary game = selectedGame();
+        if (game == null) {
+            JOptionPane.showMessageDialog(this, "Select a game first.",
+                    "Note", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        JTextArea area = new JTextArea(library.noteFor(game), 10, 48);
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        JScrollPane scroll = new JScrollPane(area);
+
+        int choice = JOptionPane.showConfirmDialog(
+                this,
+                scroll,
+                "Note - " + game.white() + " vs " + game.black(),
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+
+        if (choice == JOptionPane.OK_OPTION) {
+            try {
+                library.setNote(game, area.getText());
+                refreshTable();
+            }
+            catch (IOException ex) {
+                showSaveError(ex);
+            }
+        }
+    }
+
+    private void showSaveError(IOException ex) {
+        JOptionPane.showMessageDialog(this,
+                "Could not save your library:\n" + ex.getMessage(),
+                "Save failed", JOptionPane.ERROR_MESSAGE);
     }
 
     private void showImportMenu() {

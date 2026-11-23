@@ -2,22 +2,36 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-//Table model for the games currently shown on the home page.
+/**
+ * Table model for the games currently shown on the home page.
+ *
+ * <p>The model only displays the rows it is given. It does not search, save, or
+ * load anything, which keeps the table code small and focused.</p>
+ */
 public final class GameTableModel extends AbstractTableModel {
 
-    private static final String[] COLUMNS = {"#", "White", "Black", "Result", "Date", "Event"};
+    public static final int BOOKMARK_COLUMN = 1;
+    public static final int NOTE_COLUMN = 7;
 
-    private List<GameSummary> games = new ArrayList<>();
+    private static final String[] COLUMNS =
+            {"#", "Bookmark", "White", "Black", "Result", "Date", "Event", "Note"};
+
+    private List<GameRow> rows = new ArrayList<>();
 
     /** Replaces the visible rows with a new list of games. */
-    public void setGames(List<GameSummary> games) {
-        this.games = new ArrayList<>(games);
+    public void setRows(List<GameRow> rows) {
+        this.rows = new ArrayList<>(rows);
         fireTableDataChanged();
+    }
+
+    /** Returns the row at a model index, ignoring any table sorting. */
+    public GameRow rowAt(int modelRow) {
+        return rows.get(modelRow);
     }
 
     @Override
     public int getRowCount() {
-        return games.size();
+        return rows.size();
     }
 
     @Override
@@ -32,7 +46,13 @@ public final class GameTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int column) {
-        return column == 0 ? Integer.class : String.class;
+        if (column == 0) {
+            return Integer.class;
+        }
+        if (column == BOOKMARK_COLUMN) {
+            return Boolean.class;
+        }
+        return String.class;
     }
 
     @Override
@@ -42,15 +62,26 @@ public final class GameTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int column) {
-        GameSummary game = games.get(row);
+        GameRow gameRow = rows.get(row);
+        GameSummary game = gameRow.game();
         return switch (column) {
             case 0 -> row + 1;
-            case 1 -> game.white();
-            case 2 -> game.black();
-            case 3 -> game.result();
-            case 4 -> game.date();
-            case 5 -> game.event();
+            case BOOKMARK_COLUMN -> gameRow.bookmarked();
+            case 2 -> game.white();
+            case 3 -> game.black();
+            case 4 -> game.result();
+            case 5 -> game.date();
+            case 6 -> game.event();
+            case NOTE_COLUMN -> preview(gameRow.note());
             default -> "";
         };
+    }
+
+    private String preview(String note) {
+        if (note == null || note.isBlank()) {
+            return "";
+        }
+        String singleLine = note.replaceAll("\\s+", " ").strip();
+        return singleLine.length() <= 70 ? singleLine : singleLine.substring(0, 67) + "...";
     }
 }
