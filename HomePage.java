@@ -143,10 +143,7 @@ public class HomePage extends JFrame {
         return toolbar;
     }
 
-    /**
-     * Builds the visible rows from the games, the search text, and the
-     * bookmark filter. The table model only receives the finished rows.
-     */
+    /** Builds and shows the rows that match the search and bookmark filter. */
     private void refreshTable() {
         List<GameSummary> matchingGames = GameSearch.filter(games, searchField.getText());
         List<GameRow> rows = new ArrayList<>();

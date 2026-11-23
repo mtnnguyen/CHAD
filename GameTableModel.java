@@ -3,10 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Table model for the games currently shown on the home page.
- *
- * <p>The model only displays the rows it is given. It does not search, save, or
- * load anything, which keeps the table code small and focused.</p>
+ * Displays the rows given to it. The model does not search or save anything.
  */
 public final class GameTableModel extends AbstractTableModel {
 

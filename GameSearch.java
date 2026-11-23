@@ -2,17 +2,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-//Search rule for the game library.
+/**
+ * Search rule for the game library.
+ */
 public final class GameSearch {
 
     private GameSearch() {
     }
 
     /**
-     * Returns the games that match {query}. A blank query returns every game.
-     *
-     * The search is case-insensitive and checks the fields a player recognises:
-     * White, Black, Event, Date, and Result.
+     * Returns games matching the query. A blank query returns all games.
+     * Search is case-insensitive across White, Black, Event, Date, and Result.
      */
     public static List<GameSummary> filter(List<GameSummary> games, String query) {
         if (query == null || query.isBlank()) {

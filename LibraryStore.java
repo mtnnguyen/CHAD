@@ -9,15 +9,11 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 /**
- * Saves and loads bookmarks and notes.
+ * Saves and loads bookmarks and notes. This is the only class that knows
+ * about the library file.
  *
- * <p>This class is the only part of the app that knows about the library file.
- * The rest of the app simply asks for a game's bookmark or note and never has
- * to deal with file paths or properties.</p>
- *
- * <p>Games are identified by a hash of their PGN. The hash stays the same when
- * the same game is imported again, so notes and bookmarks reattach after a
- * restart.</p>
+ * Games are matched by a hash of their PGN, so saved data reattaches when
+ * the same game is imported again.
  */
 public final class LibraryStore {
 
