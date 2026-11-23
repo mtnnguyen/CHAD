@@ -10,8 +10,11 @@ public class OpeningAnalyzer {
 
         for (OpeningResult game : games) {
             String openingName = game.openingName();
+
             if (openingName == null || openingName.isBlank()) {
                 openingName = "Unknown";
+            } else {
+                openingName = openingName.strip();
             }
 
             if (!groupedGames.containsKey(openingName)) {
