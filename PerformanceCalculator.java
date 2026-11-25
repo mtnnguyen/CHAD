@@ -22,6 +22,18 @@ public class PerformanceCalculator {
 
             String result = game.result();
 
+            if ("*".equals(result)) {
+                continue;
+            }
+
+            if (!"1-0".equals(result)
+                    && !"0-1".equals(result)
+                    && !"1/2-1/2".equals(result)) {
+                throw new IllegalArgumentException(
+                        "Invalid game result: " + result
+                );
+            }
+
             if ("1/2-1/2".equals(result)) {
                 draws++;
             } else if ("1-0".equals(result)) {
