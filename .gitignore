@@ -1,2 +1,12 @@
-#ignored .class files from javac
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Java compiled files
 *.class
+out/
+build/
+
+# macOS
+.DS_Store
